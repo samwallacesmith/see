@@ -29,13 +29,12 @@ const FeaturedReview = () => {
         : 'path/to/placeholder/image.jpg';
 
     return (
-        <Box className="featured-review" sx={{ display: 'flex', alignItems: 'center', padding: '20px', backgroundColor: '#f0f0f0' }}>
+        <Box className="featured-review">
             <CardMedia
                 component="img"
                 alt={movie.title}
                 image={posterUrl}
                 onError={(e) => (e.currentTarget.src = 'path/to/placeholder/image.jpg')}
-                sx={{ width: '300px', height: 'auto', marginRight: '20px' }}
             />
             <CardContent>
                 <Typography variant="h1" component="h1" gutterBottom>

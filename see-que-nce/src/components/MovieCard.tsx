@@ -1,4 +1,5 @@
 import { Card, CardMedia, CardContent, Typography } from '@mui/material';
+import { truncateText } from '../utils/utils'; 
 
 const MovieCard = ({ movie }) => {
     if (!movie || !movie.attributes) {
@@ -9,6 +10,8 @@ const MovieCard = ({ movie }) => {
     const posterUrl = movie.attributes.poster?.data?.attributes?.url
         ? `${baseUrl}${movie.attributes.poster.data.attributes.url}`
         : 'path/to/placeholder/image.jpg';
+
+    const maxLength = 100;
 
     return (
         <Card>
@@ -24,7 +27,7 @@ const MovieCard = ({ movie }) => {
                     {movie.attributes.title}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                    {movie.attributes.description}
+                    {truncateText(movie.attributes.description, maxLength)}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                     Release Date: {new Date(movie.attributes.release_date).toLocaleDateString()}

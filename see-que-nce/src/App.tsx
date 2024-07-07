@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import Review from './pages/Review'; 
+import 'bootstrap/dist/css/bootstrap-grid.min.css';
 
 const App: React.FC = () => {
 	return (
