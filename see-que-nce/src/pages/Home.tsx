@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Grid, Typography, Box } from '@mui/material';
+import { Link } from 'react-router-dom';
 import { getMovies, getLatestReviews, getTopRatedMovies, getUpcomingMovies } from '../services/api';
 import MovieCard from '../components/MovieCard';
 import ReviewCard from '../components/ReviewCard';
-import FeaturedReview from '../components/FeaturedReview'; // Import the new component
+import FeaturedReview from '../components/FeaturedReview';
 
 const HomePage: React.FC = () => {
     const [featuredMovies, setFeaturedMovies] = useState([]);
@@ -33,48 +34,39 @@ const HomePage: React.FC = () => {
         <Container className='py-4'>
             <div className='row'>
                 <div className='col-md-8'>
-                    {/* Featured Review Section */}
                     <Box mb={4}>
                         <FeaturedReview />
                     </Box>
                 </div>
-
                 <div className='col-md-4'>
-                    {/* Latest Reviews */}
                     <h4>Latest Reviews</h4>
                     {latestReviews.map(review => (
-                        <ReviewCard key={review.id} review={review} />
+                        <Link to={`/article/reviews/${review.id}`} key={review.id}>
+                            <ReviewCard review={review} />
+                        </Link>
                     ))}
                 </div>
             </div>
-
-            <div className='row pb-4'>
-                <div className='col-12'>
-                    {/* Top Rated Movies */}
-                    <h4 className='text-center'>Top Rated Movies</h4>
-                    <Grid container spacing={4}>
-                        {topRatedMovies.map(movie => (
-                            <Grid item key={movie.id} xs={12} sm={6} md={4}>
-                                <MovieCard movie={movie} />
-                            </Grid>
-                        ))}
+            <h4>Top Rated Movies</h4>
+            <Grid container spacing={4}>
+                {topRatedMovies.map(movie => (
+                    <Grid item key={movie.id} xs={12} sm={6} md={4}>
+                        <Link to={`/article/movies/${movie.id}`} key={movie.id}>
+                            <MovieCard movie={movie} />
+                        </Link>
                     </Grid>
-                </div>
-            </div>
-
-            <div className='row'>
-                <div className='col-12'>
-                    {/* Upcoming Movies */}
-                    <h4 className='text-center'>Upcoming Movies</h4>
-                    <Grid container spacing={4}>
-                        {upcomingMovies.map(movie => (
-                            <Grid item key={movie.id} xs={12} sm={6} md={4}>
-                                <MovieCard movie={movie} />
-                            </Grid>
-                        ))}
+                ))}
+            </Grid>
+            <h4>Upcoming Movies</h4>
+            <Grid container spacing={4}>
+                {upcomingMovies.map(movie => (
+                    <Grid item key={movie.id} xs={12} sm={6} md={4}>
+                        <Link to={`/article/movies/${movie.id}`} key={movie.id}>
+                            <MovieCard movie={movie} />
+                        </Link>
                     </Grid>
-                </div>
-            </div>
+                ))}
+            </Grid>
         </Container>
     );
 };

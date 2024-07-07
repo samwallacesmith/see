@@ -1,50 +1,57 @@
 import React, { useEffect, useState } from 'react';
-import { CardMedia, CardContent, Typography, Box } from '@mui/material';
 import { getFeaturedReview } from '../services/api';
-import styles from './FeaturedReview.module.scss';
+import { Box, Card, CardMedia, CardContent, Typography } from '@mui/material';
 
 const FeaturedReview = () => {
     const [review, setReview] = useState(null);
 
     useEffect(() => {
-        const fetchFeaturedReview = async () => {
-            const response = await getFeaturedReview();
-            if (response.data.length > 0) {
-                setReview(response.data[0]);
-            } else {
-                setReview(null);
+        const fetchReview = async () => {
+            try {
+                const response = await getFeaturedReview();
+                if (response.data.length > 0) {
+                    setReview(response.data[0]);
+                }
+            } catch (error) {
+                console.error('Error fetching featured review:', error);
             }
         };
 
-        fetchFeaturedReview();
+        fetchReview();
     }, []);
 
-    if (!review) {
-        return <div>No featured review available.</div>;
+    if (!review || !review.attributes) {
+        return <p>No featured review available.</p>;
     }
 
-    const movie = review.attributes.movie.data.attributes;
+    const reviewData = review.attributes;
     const baseUrl = import.meta.env.VITE_API_BASE_URL.replace('/api', '');
-    const posterUrl = movie.poster?.data?.attributes?.url
-        ? `${baseUrl}${movie.poster.data.attributes.url}`
+    const posterUrl = reviewData.poster?.data?.attributes?.url
+        ? `${baseUrl}${reviewData.poster.data.attributes.url}`
         : 'path/to/placeholder/image.jpg';
 
+    // Extract the first paragraph
+    const firstParagraph = reviewData.content.find(block => block.type === 'paragraph')?.children[0].text;
+
     return (
-        <Box className={styles.featuredReview}>
-            <CardMedia
-                component="img"
-                alt={movie.title}
-                image={posterUrl}
-                onError={(e) => (e.currentTarget.src = 'path/to/placeholder/image.jpg')}
-            />
-            <CardContent>
-                <Typography variant="h1" component="h1" gutterBottom>
-                    {review.attributes.Title}
-                </Typography>
-                <Typography variant="body1" color="text.secondary">
-                    {review.attributes.Content}
-                </Typography>
-            </CardContent>
+        <Box mb={4}>
+            <Card>
+                <CardMedia
+                    component="img"
+                    alt={reviewData.title}
+                    height="300"
+                    image={posterUrl}
+                    onError={(e) => (e.currentTarget.src = 'path/to/placeholder/image.jpg')}
+                />
+                <CardContent>
+                    <Typography gutterBottom variant="h4" component="div">
+                        {reviewData.title}
+                    </Typography>
+                    <Typography variant="body1" color="text.secondary">
+                        {firstParagraph}
+                    </Typography>
+                </CardContent>
+            </Card>
         </Box>
     );
 };

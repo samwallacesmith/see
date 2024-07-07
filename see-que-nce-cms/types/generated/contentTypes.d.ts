@@ -845,15 +845,16 @@ export interface ApiReviewReview extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    Title: Attribute.String;
-    Content: Attribute.Text;
-    Rating: Attribute.Integer;
+    title: Attribute.String;
+    rating: Attribute.Integer;
     movie: Attribute.Relation<
       'api::review.review',
       'manyToOne',
       'api::movie.movie'
     >;
-    Featured: Attribute.Boolean;
+    featured: Attribute.Boolean;
+    content: Attribute.Blocks;
+    poster: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

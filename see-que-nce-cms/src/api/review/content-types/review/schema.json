@@ -12,13 +12,10 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "Title": {
+    "title": {
       "type": "string"
     },
-    "Content": {
-      "type": "text"
-    },
-    "Rating": {
+    "rating": {
       "type": "integer"
     },
     "movie": {
@@ -27,8 +24,21 @@
       "target": "api::movie.movie",
       "inversedBy": "reviews"
     },
-    "Featured": {
+    "featured": {
       "type": "boolean"
+    },
+    "content": {
+      "type": "blocks"
+    },
+    "poster": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }
