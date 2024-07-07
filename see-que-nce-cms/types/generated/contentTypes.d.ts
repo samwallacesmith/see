@@ -362,85 +362,6 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
-export interface ApiMovieMovie extends Schema.CollectionType {
-  collectionName: 'movies';
-  info: {
-    singularName: 'movie';
-    pluralName: 'movies';
-    displayName: 'Movie';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    title: Attribute.String;
-    description: Attribute.Text;
-    release_date: Attribute.Date;
-    rating: Attribute.Integer;
-    poster: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    reviews: Attribute.Relation<
-      'api::movie.movie',
-      'oneToMany',
-      'api::review.review'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::movie.movie',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::movie.movie',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiReviewReview extends Schema.CollectionType {
-  collectionName: 'reviews';
-  info: {
-    singularName: 'review';
-    pluralName: 'reviews';
-    displayName: 'Reviews';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    Title: Attribute.String;
-    Content: Attribute.Text;
-    Rating: Attribute.Integer;
-    movie: Attribute.Relation<
-      'api::review.review',
-      'manyToOne',
-      'api::movie.movie'
-    >;
-    Featured: Attribute.Boolean;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::review.review',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::review.review',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -867,6 +788,129 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
+export interface ApiMovieMovie extends Schema.CollectionType {
+  collectionName: 'movies';
+  info: {
+    singularName: 'movie';
+    pluralName: 'movies';
+    displayName: 'Movie';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.Text;
+    release_date: Attribute.Date;
+    rating: Attribute.Integer;
+    poster: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    reviews: Attribute.Relation<
+      'api::movie.movie',
+      'oneToMany',
+      'api::review.review'
+    >;
+    submitted_reviews: Attribute.Relation<
+      'api::movie.movie',
+      'oneToMany',
+      'api::submitted-review.submitted-review'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::movie.movie',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::movie.movie',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiReviewReview extends Schema.CollectionType {
+  collectionName: 'reviews';
+  info: {
+    singularName: 'review';
+    pluralName: 'reviews';
+    displayName: 'Reviews';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Title: Attribute.String;
+    Content: Attribute.Text;
+    Rating: Attribute.Integer;
+    movie: Attribute.Relation<
+      'api::review.review',
+      'manyToOne',
+      'api::movie.movie'
+    >;
+    Featured: Attribute.Boolean;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::review.review',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::review.review',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiSubmittedReviewSubmittedReview
+  extends Schema.CollectionType {
+  collectionName: 'submitted_reviews';
+  info: {
+    singularName: 'submitted-review';
+    pluralName: 'submitted-reviews';
+    displayName: 'Submitted Reviews';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String;
+    content: Attribute.Blocks;
+    rating: Attribute.Integer;
+    email: Attribute.Email;
+    movie: Attribute.Relation<
+      'api::submitted-review.submitted-review',
+      'manyToOne',
+      'api::movie.movie'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::submitted-review.submitted-review',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::submitted-review.submitted-review',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -877,8 +921,6 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
-      'api::movie.movie': ApiMovieMovie;
-      'api::review.review': ApiReviewReview;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;
@@ -887,6 +929,9 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::movie.movie': ApiMovieMovie;
+      'api::review.review': ApiReviewReview;
+      'api::submitted-review.submitted-review': ApiSubmittedReviewSubmittedReview;
     }
   }
 }

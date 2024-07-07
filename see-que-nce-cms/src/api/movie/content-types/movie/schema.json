@@ -40,6 +40,12 @@
       "relation": "oneToMany",
       "target": "api::review.review",
       "mappedBy": "movie"
+    },
+    "submitted_reviews": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::submitted-review.submitted-review",
+      "mappedBy": "movie"
     }
   }
 }

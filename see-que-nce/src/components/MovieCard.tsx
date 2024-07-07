@@ -1,5 +1,6 @@
 import { Card, CardMedia, CardContent, Typography } from '@mui/material';
 import { truncateText } from '../utils/utils'; 
+import styles from './MovieCard.module.scss';
 
 const MovieCard = ({ movie }) => {
     if (!movie || !movie.attributes) {
@@ -14,7 +15,7 @@ const MovieCard = ({ movie }) => {
     const maxLength = 100;
 
     return (
-        <Card>
+        <Card className={styles.movieCard}>
             <CardMedia
                 component="img"
                 alt={movie.attributes.title}
@@ -23,7 +24,7 @@ const MovieCard = ({ movie }) => {
                 onError={(e) => (e.currentTarget.src = 'path/to/placeholder/image.jpg')}
             />
             <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
+                <Typography className={styles.title} gutterBottom variant="h5" component="div">
                     {movie.attributes.title}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">

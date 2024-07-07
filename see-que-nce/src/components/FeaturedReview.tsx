@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { CardMedia, CardContent, Typography, Box } from '@mui/material';
 import { getFeaturedReview } from '../services/api';
+import styles from './FeaturedReview.module.scss';
 
 const FeaturedReview = () => {
     const [review, setReview] = useState(null);
@@ -29,7 +30,7 @@ const FeaturedReview = () => {
         : 'path/to/placeholder/image.jpg';
 
     return (
-        <Box className="featured-review">
+        <Box className={styles.featuredReview}>
             <CardMedia
                 component="img"
                 alt={movie.title}

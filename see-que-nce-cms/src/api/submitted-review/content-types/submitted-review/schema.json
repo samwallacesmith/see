@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "submitted_reviews",
+  "info": {
+    "singularName": "submitted-review",
+    "pluralName": "submitted-reviews",
+    "displayName": "Submitted Reviews"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "content": {
+      "type": "blocks"
+    },
+    "rating": {
+      "type": "integer"
+    },
+    "email": {
+      "type": "email"
+    },
+    "movie": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::movie.movie",
+      "inversedBy": "submitted_reviews"
+    }
+  }
+}

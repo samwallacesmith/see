@@ -1,5 +1,6 @@
 import { Card, CardMedia, CardContent, Typography } from '@mui/material';
 import { truncateText } from '../utils/utils'; 
+import styles from './ReviewCard.module.scss';
 
 const ReviewCard = ({ review }) => {
     if (!review || !review.attributes || !review.attributes.movie || !review.attributes.movie.data || !review.attributes.movie.data.attributes) {
@@ -19,7 +20,7 @@ const ReviewCard = ({ review }) => {
     const maxLength = 100; // Set the max length for the content
 
     return (
-        <Card className='mb-4'>
+        <Card className={styles.reviewCard}>
             <CardMedia
                 component="img"
                 alt={movie.title}
@@ -28,7 +29,7 @@ const ReviewCard = ({ review }) => {
                 onError={(e) => (e.currentTarget.src = 'path/to/placeholder/image.jpg')}
             />
             <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
+                <Typography className={styles.title} gutterBottom variant="h5" component="div">
                     {reviewData.Title}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">

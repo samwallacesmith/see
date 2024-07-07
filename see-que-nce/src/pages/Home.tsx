@@ -41,7 +41,7 @@ const HomePage: React.FC = () => {
 
                 <div className='col-md-4'>
                     {/* Latest Reviews */}
-                    <Typography variant="h4" gutterBottom>Latest Reviews</Typography>
+                    <h4>Latest Reviews</h4>
                     {latestReviews.map(review => (
                         <ReviewCard key={review.id} review={review} />
                     ))}
@@ -51,7 +51,7 @@ const HomePage: React.FC = () => {
             <div className='row pb-4'>
                 <div className='col-12'>
                     {/* Top Rated Movies */}
-                    <Typography variant="h4" gutterBottom>Top Rated Movies</Typography>
+                    <h4 className='text-center'>Top Rated Movies</h4>
                     <Grid container spacing={4}>
                         {topRatedMovies.map(movie => (
                             <Grid item key={movie.id} xs={12} sm={6} md={4}>
@@ -65,7 +65,7 @@ const HomePage: React.FC = () => {
             <div className='row'>
                 <div className='col-12'>
                     {/* Upcoming Movies */}
-                    <Typography variant="h4" gutterBottom>Upcoming Movies</Typography>
+                    <h4 className='text-center'>Upcoming Movies</h4>
                     <Grid container spacing={4}>
                         {upcomingMovies.map(movie => (
                             <Grid item key={movie.id} xs={12} sm={6} md={4}>
